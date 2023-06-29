@@ -7,3 +7,12 @@ The following diagram has the following steps:
 <p align="center">
   <img src="pictures/rollout.png?raw=true" />
 </p>
+
+you can follow these steps to deploy and wait for rollout of your workloads:
+
+```bash
+$ helm template --debug -n ${NAMESPACE} ${PROJECT_NAME} \
+  ./helm-chart/ > all_manifests.yaml
+$
+$ kubectl-slice --input-file=all_manifests.yaml --output-dir=manifests
+```
