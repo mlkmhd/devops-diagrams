@@ -16,3 +16,24 @@ $ helm template --debug -n ${NAMESPACE} ${PROJECT_NAME} \
 $
 $ kubectl-slice --input-file=all_manifests.yaml --output-dir=manifests
 ```
+
+rolling out script:
+
+```bash
+#!/bin/bash
+
+cd manifests
+
+KUBERNETES_NAMESPACE=`echo ${CI_PROJECT_NAMESPACE##*/}`
+
+if [ -f deployment* ]
+then
+  for file in deployment*
+  do
+      deployment_name=${file#"deployment-"}
+      deployment_name=${deployment_name%".yaml"}
+      
+      kubectl rollout status deployment $deployment_name -n $KUBERNETES_NAMESPACE --timeout=1000s
+  done
+fi
+```
