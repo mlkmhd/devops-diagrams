@@ -38,3 +38,35 @@ then
   done
 fi
 ```
+
+for waiting `statefulsets` and `jobs` you can use the following code: 
+
+```bash
+if [ -f statefulset* ]
+then
+  for file in statefulset*
+  do
+      statefulset_name=${file#"statefulset-"}
+      statefulset_name=${statefulset_name%".yaml"}
+      
+      kubectl rollout status statefulset $statefulset_name -n $KUBERNETES_NAMESPACE --timeout=1000s
+  done
+fi
+
+if [ -f job* ]
+then
+  for file in job*
+  do
+      job_name=${file#"job-"}
+      job_name=${job_name%".yaml"}
+      
+      kubectl wait --for=condition=complete job/$job_name -n $KUBERNETES_NAMESPACE --timeout=1800s &
+      completion_pid=$!
+
+      kubectl wait --for=condition=failed job/$job_name -n $KUBERNETES_NAMESPACE --timeout=1800s && exit 1 &
+      failure_pid=$! 
+
+      wait -n $completion_pid $failure_pid
+
+  done
+```
