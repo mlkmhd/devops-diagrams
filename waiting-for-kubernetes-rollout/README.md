@@ -1,3 +1,4 @@
+# Monitor Rollout process in CD pipeline
 
 The diagram below outlines the key steps involved in the process:
 
@@ -39,7 +40,7 @@ then
 fi
 ```
 
-for waiting `statefulsets` and `jobs` you can use the following code: 
+for waiting `statefulsets` you can use the following code: 
 
 ```bash
 if [ -f statefulset* ]
@@ -52,7 +53,10 @@ then
       kubectl rollout status statefulset $statefulset_name -n $KUBERNETES_NAMESPACE --timeout=1000s
   done
 fi
+```
 
+for waiting `statefulsets` you can use the following code: 
+```bash
 if [ -f job* ]
 then
   for file in job*
