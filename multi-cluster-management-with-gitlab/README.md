@@ -6,3 +6,8 @@ As you can see in the image below, you can create multiple groups within it and 
 <p align="center">
   <img src="pictures/gitlab-structure.png?raw=true" />
 </p>
+
+you can see the details of this document on the following article:
+
+https://medium.com/itnext/managing-multiple-kubernetes-clusters-using-git-cd068bbd85ac
+
