@@ -25,3 +25,5 @@ In the ever-evolving world of DevOps and Kubernetes, the GitOps approach has eme
   <img src="pictures/push-vs-pull-scalability.png?raw=true" />
 </p>
 
+you can refer to the following article for more information:
+https://medium.com/itnext/gitops-pull-based-vs-push-based-959c50feca78
