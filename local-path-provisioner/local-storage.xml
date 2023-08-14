@@ -1,0 +1,99 @@
+<mxfile host="app.diagrams.net" modified="2023-08-14T04:51:07.081Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="JCiqd8PP80STjRmQ1kty" version="21.6.8" type="device" pages="2">
+  <diagram name="introduction" id="dVAde6VpqZl3Kj1RAUaK">
+    <mxGraphModel dx="840" dy="523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dkBbltMl28Scp7yIogjc-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="130" width="280" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="dkBbltMl28Scp7yIogjc-4" value="local disk volume 1" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="187.5" y="220" width="112.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dkBbltMl28Scp7yIogjc-6" value="Kubernetes worker 1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="235" y="260" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dkBbltMl28Scp7yIogjc-15" value="POD 1" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="203.75" y="150" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dkBbltMl28Scp7yIogjc-16" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dkBbltMl28Scp7yIogjc-15" target="dkBbltMl28Scp7yIogjc-4" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="423.75" y="270" as="sourcePoint" />
+            <mxPoint x="473.75" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dkBbltMl28Scp7yIogjc-17" value="local disk volume 2" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="313" y="220" width="112.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dkBbltMl28Scp7yIogjc-18" value="POD 2" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="329.25" y="150" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dkBbltMl28Scp7yIogjc-19" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dkBbltMl28Scp7yIogjc-18" target="dkBbltMl28Scp7yIogjc-17" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="549.25" y="270" as="sourcePoint" />
+            <mxPoint x="599.25" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="V8lPiU_TlBMKGE5XKfyx" name="pv-and-pvc">
+    <mxGraphModel dx="840" dy="523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="RzM-PeW_cWts66BzVsfR-1" value="POD" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="170" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-2" value="PV (Persistence Volume)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-3" value="PVC (Persistence Volume Claim)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-4" value="Volume (/var/volumes/...)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RzM-PeW_cWts66BzVsfR-1" target="RzM-PeW_cWts66BzVsfR-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="270" as="sourcePoint" />
+            <mxPoint x="520" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-6" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RzM-PeW_cWts66BzVsfR-3" target="RzM-PeW_cWts66BzVsfR-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="430" y="410" as="sourcePoint" />
+            <mxPoint x="480" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RzM-PeW_cWts66BzVsfR-2" target="RzM-PeW_cWts66BzVsfR-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="490" as="sourcePoint" />
+            <mxPoint x="570" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-8" value="Local Path Provisioner" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="400" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-9" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="RzM-PeW_cWts66BzVsfR-8" target="RzM-PeW_cWts66BzVsfR-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="430" y="420" as="sourcePoint" />
+            <mxPoint x="480" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-10" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="195" y="370" as="sourcePoint" />
+            <mxPoint x="655" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RzM-PeW_cWts66BzVsfR-11" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="1" source="RzM-PeW_cWts66BzVsfR-8" target="RzM-PeW_cWts66BzVsfR-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="510" as="sourcePoint" />
+            <mxPoint x="570" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
