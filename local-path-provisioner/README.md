@@ -16,3 +16,5 @@ the following steps will happen when you create a PVC on kubernetes:
 - local-path-provisioner will create a PV for volume
 - the volume will attach to the PV
 - the PV will be bound to the PVC
+
+you can see the full article at the following link: https://medium.com/p/6f1e6e994b51
