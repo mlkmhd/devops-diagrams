@@ -9,3 +9,6 @@ in the following diagram, you can see the architecture of sorry cypress:
 <p align="center">
   <img src="pictures/architecture.png?raw=true" />
 </p>
+
+you can refer to the following article on medium to learn more:
+https://medium.com/itnext/sorry-cypress-quick-start-349f283ca258
