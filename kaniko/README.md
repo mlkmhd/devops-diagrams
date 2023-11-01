@@ -15,3 +15,5 @@ Kaniko is a tool for creating a docker image without needing to docker daemon as
 <p align="center">
   <img src="pictures/dind.png?raw=true" />
 </p>
+
+you can read the full article at the following link: https://medium.com/p/6859bdb893f6
