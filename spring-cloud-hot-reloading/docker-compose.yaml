@@ -1,0 +1,60 @@
+version: '3'
+services:
+  vault:
+    image: vault:1.13.3
+    container_name: vault-server
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: "root"
+    restart: always
+  
+  kafka1:
+    image: 'bitnami/kafka:3.3.1'
+    container_name: kafka
+    environment:
+      - KAFKA_ENABLE_KRAFT=yes
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_BROKER_ID=1
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka1:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka1:9092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_KRAFT_CLUSTER_ID=r4zt_wrqTRuT7W2NJsB_GA
+    ports:
+      - "9092:9092"
+
+#  rabbitmq:
+#    image: rabbitmq:management
+#    container_name: rabbitmq
+#    ports:
+#      - "5672:5672"  # RabbitMQ main port
+#      - "15672:15672"  # RabbitMQ management UI port
+#    environment:
+#      RABBITMQ_DEFAULT_USER: root
+#      RABBITMQ_DEFAULT_PASS: ahnu2iephohcoQuoh7lo
+
+  config-server:
+    build: ./microservices/config-server
+    ports:
+      - "8888:8888"
+    volumes:
+      - ~/.ssh/:/root/.ssh/
+    environment:
+      TZ: "Asia/Tokyo"
+  
+  catalog-service:
+    build: ./microservices/catalog-service
+    environment:
+      TZ: "Asia/Tokyo"
+    ports:
+      - "8081:8081"
+  
+  order-service:
+    build: ./microservices/order-service
+    environment:
+      TZ: "Asia/Tokyo"
+    ports:
+      - "8082:8082"

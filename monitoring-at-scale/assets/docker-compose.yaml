@@ -1,0 +1,75 @@
+version: "3"
+services:
+    haproxy:
+      image: haproxy:2.0.5-alpine
+      volumes:
+      - "./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+      ports:
+      - "8404:8404"
+      - "9009:9009"
+    
+    consul:
+      image: consul:1.15
+      ports:
+      - "8500:8500"
+    
+    cortex1:
+      image: quay.io/cortexproject/cortex:master-c9d6ca8
+      command: -config.file=/etc/single-process-config.yaml -ring.store=consul  -consul.hostname=consul:8500
+      ports:
+      - "9001:9009"
+      volumes:
+      - "./config/cortex-config.yaml:/etc/single-process-config.yaml"
+    
+    cortex2:
+      image: quay.io/cortexproject/cortex:master-c9d6ca8
+      command: -config.file=/etc/single-process-config.yaml -ring.store=consul  -consul.hostname=consul:8500
+      ports:
+      - "9002:9009"
+      volumes:
+      - "./config/cortex-config.yaml:/etc/single-process-config.yaml"
+    
+    cortex3:
+      image: quay.io/cortexproject/cortex:master-c9d6ca8
+      command: -config.file=/etc/single-process-config.yaml -ring.store=consul  -consul.hostname=consul:8500
+      ports:
+      - "9003:9009"
+      volumes:
+      - "./config/cortex-config.yaml:/etc/single-process-config.yaml"
+    
+    grafana:
+      image: grafana/grafana
+      ports:
+      - "3000:3000"
+    
+    node-exporter:
+      image: basi/node-exporter
+      ports:
+      - "9100:9100"
+    
+    prometheus:
+      image: prom/prometheus
+      ports:
+      - "9090:9090"
+      volumes:
+      - "./config/prometheus.yml:/etc/prometheus/prometheus.yml"
+    
+    promxy:
+      build: ./promxy
+      volumes:
+        - ./config/promxy.yaml:/app/promxy.yaml
+      ports:
+        - "8082:8082"
+      command:
+        - promxy
+        - --log-level=debug
+        - --config=/app/promxy.yaml
+
+    alertmanager:
+      image: prom/alertmanager
+      ports:
+        - "9093:9093"
+      command:
+        - '--config.file=/etc/alertmanager/config.yml'
+      volumes:
+        - ./config/alertmanager.yml:/etc/alertmanager/config.yml

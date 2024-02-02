@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vault-internal
+  namespace: test
+  annotations:
+    networking.istio.io/exportTo: "."
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    sidecar.istio.io/inject: "false"
+  name: vault-server-test
+  namespace: test

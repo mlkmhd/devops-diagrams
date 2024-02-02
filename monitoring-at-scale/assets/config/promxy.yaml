@@ -1,0 +1,60 @@
+##
+## Regular prometheus configuration
+##
+global:
+  evaluation_interval: 5s
+  external_labels:
+    source: promxy
+
+# Rule files specifies a list of globs. Rules and alerts are read from
+# all matching files.
+rule_files:
+  - "*rule"
+
+# Alerting specifies settings related to the Alertmanager.
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+        - targets:
+            - "alertmanager:9093"
+
+# remote_write configuration is used by promxy as its local Appender, meaning all
+# metrics promxy would "write" (not export) would be sent to this. Examples
+# of this include: recording rules, metrics on alerting rules, etc.
+remote_write:
+  - url: http://localhost:8083/receive
+
+##
+### Promxy configuration
+##
+promxy:
+  server_groups:
+    # All upstream prometheus service discovery mechanisms are supported with the same
+    # markup, all defined in https://github.com/prometheus/prometheus/blob/master/discovery/config/config.go#L33
+    - static_configs:
+        - targets:
+            - haproxy:9009
+            #- prometheus:9090
+
+rules:
+  default.yml:
+    groups:
+      - name: cpu
+        rules:
+          - alert: HighCPULoad
+            expr: max by (namespace,pod,container)(rate(container_cpu_usage_seconds_total{image!="",container!="POD",$(rules-filter)}[5m])) / max by (namespace,pod,container)(kube_pod_container_resource_requests_cpu_cores{$(rules-filter)}>0) * 100 > 70
+            for: 1m
+            labels:
+              severity: warning
+            annotations:
+              summary: 'High CPU Load'
+              description: 'High CPU load for {{$labels.container}} in {{$labels.pod}}'
+          - alert: HighCPUThrottle
+            expr: sum by (namespace,pod,container) (rate(container_cpu_cfs_throttled_seconds_total{image!="",container!="POD",$(rules-filter)}[5m])) > 10
+            for: 1m
+            labels:
+              severity: warning
+            annotations:
+              summary: 'High CPU throttle'
+              description: 'High CPU throttle for {{$labels.container}} in {{$labels.pod}}'

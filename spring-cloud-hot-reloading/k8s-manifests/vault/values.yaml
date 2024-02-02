@@ -1,0 +1,27 @@
+
+injector:
+  enabled: false
+
+server:
+  image:
+    repository: "hashicorp/vault"
+    tag: "1.13.3"
+  dev:
+    enabled: true
+    devRootToken: "root"
+  dataStorage:
+    enabled: false
+  authDelegator:
+    enabled: false
+  annotations:
+    sidecar.istio.io/inject: "false"
+  serviceAccount:
+    create: false
+  statefulSet:
+    securityContext:
+      pod:
+        runAsNonRoot: true
+        runAsUser: 1001
+      container:
+        runAsNonRoot: true
+        runAsUser: 1001

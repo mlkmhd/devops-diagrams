@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: order-service
+  name: order-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+      labels:
+        app: order-service
+    spec:
+      imagePullSecrets:
+        - name: harbor-bot
+      containers:
+        - env:
+            - name: TZ
+              value: "Asia/Tokyo"
+          image: registry-jpe2.r-local.net/ecfd-devops-spring-cloud-config/test-order-service
+          imagePullPolicy: Always
+          name: order-service
+          ports:
+            - containerPort: 8082
+              name: app
+          resources:
+            limits:
+              cpu: 500m
+              memory: 500Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            runAsUser: 1001
+          readinessProbe:
+            httpGet:
+              path: /actuator
+              port: 8082
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator
+              port: 8082
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          volumeMounts:
+            - mountPath: /app/config
+              name: config
+              readOnly: true
+      securityContext:
+        fsGroup: 65533
+        runAsUser: 1001
+      volumes:
+        - name: config
+          projected:
+            defaultMode: 288
+            sources:
+              - configMap:
+                  name: order-service

@@ -1,0 +1,12 @@
+repositories:
+  - name: vault-repo
+    url: https://helm.releases.hashicorp.com/
+
+releases:
+  - name: vault
+    namespace: test
+    createNamespace: false
+    chart: vault-repo/vault
+    version: 0.27.0
+    values:
+      - ./values.yaml
