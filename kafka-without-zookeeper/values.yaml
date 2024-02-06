@@ -1,0 +1,13 @@
+
+serviceAccount:
+  create: false
+
+controller:
+  persistence:
+    enabled: false
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
+
+listener:
+  interbroker:
+    protocol: PLAINTEXT
