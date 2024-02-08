@@ -30,3 +30,6 @@ you can find the password that have been used in the above configuration in the 
 ```commandline
 kubectl -n ecfd-devops-spring-cloud-config edit secrets kafka-user-passwords
 ```
+
+you can find the full article in the following link:
+https://medium.com/itnext/kafka-cluster-without-zookeeper-ca40d5f22304
