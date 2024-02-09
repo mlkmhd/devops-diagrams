@@ -3,10 +3,10 @@ data:
   application.properties: |
     server.port=8888
   
-    spring.profiles.active=git,vault
+    spring.profiles.active=git,vault,kubernetes
     
-    spring.cloud.config.server.git.uri=https://github.com/mlkmhd/spring-cloud-sample-config
-    spring.cloud.config.server.git.defaultLabel=main
+    spring.cloud.config.server.git.uri=ssh://git@github.com:mlkmhd/spring-cloud-sample-config.git
+    spring.cloud.config.server.git.defaultLabel=master
     spring.cloud.config.server.git.skipSslValidation=true
     
     # Git Refresh Rate
@@ -37,6 +37,12 @@ data:
     management.endpoint.health.show-details=always
     
     spring.cloud.bus.enabled=true
+    
+    spring.config.activate.on-cloud-platform=kubernetes
+    spring.cloud.kubernetes.secrets.enableApi=true
+    spring.config.import=optional:kubernetes:
+    spring.cloud.kubernetes.config.enableApi=true
+    spring.cloud.kubernetes.reload.enabled=true
 
 kind: ConfigMap
 metadata:

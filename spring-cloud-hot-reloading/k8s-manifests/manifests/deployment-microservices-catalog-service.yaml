@@ -22,7 +22,7 @@ spec:
         - env:
             - name: TZ
               value: "Asia/Tokyo"
-          image: registry-jpe2.r-local.net/ecfd-devops-spring-cloud-config/test-catalog-service
+          image: registry-jpe2.r-local.net/ecfd-devops-spring-cloud-config/test-catalog-service:2
           imagePullPolicy: Always
           name: catalog-service
           ports:
@@ -69,4 +69,4 @@ spec:
             defaultMode: 288
             sources:
               - configMap:
-                  name: catalog-service
+                  name: catalog-service-startup

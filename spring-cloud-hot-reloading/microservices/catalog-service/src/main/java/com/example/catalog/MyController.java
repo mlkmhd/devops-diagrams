@@ -17,8 +17,11 @@ public class MyController {
     @Value("${db.name}")
     private String dbname;
 
+    @Value("${my.test.config}")
+    private String myTestConfig;
+
     @GetMapping
     public String getConfigValue() {
-        return "database password is: "+ dbpassword + ", and dbname is: "+ dbname;
+        return "database password is: "+ dbpassword + ", and dbname is: "+ dbname + " and my test config is: "+ myTestConfig;
     }
 }

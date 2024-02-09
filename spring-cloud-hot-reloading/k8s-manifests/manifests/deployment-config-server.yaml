@@ -18,11 +18,13 @@ spec:
     spec:
       imagePullSecrets:
         - name: harbor-bot
+      #serviceAccount: tenant-pod-default
       containers:
         - env:
             - name: TZ
               value: "Asia/Tokyo"
-          image: registry-jpe2.r-local.net/ecfd-devops-spring-cloud-config/test-configserver:4
+          #image: registry-jpe2.r-local.net/ecfd-devops-spring-cloud-config/test-configserver:4
+          image: registry-jpe2.r-local.net/ecfd-devops-spring-cloud-config/test-configserver:7
           imagePullPolicy: Always
           name: config-server
           ports:

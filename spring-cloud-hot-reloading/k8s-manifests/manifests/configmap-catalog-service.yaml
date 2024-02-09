@@ -1,33 +1,7 @@
 apiVersion: v1
 data:
-  application.properties: |
-    spring.application.name=catalog-service
-    spring.profiles.active=dev
-    
-    # config reads from http://CONFIG_SERVER:PORT/{spring.application.name}/{spring.profiles.active}/{master or main}
-    spring.cloud.config.uri=http://config-server:8888
-    spring.cloud.config.name=catalog-service
-    spring.cloud.config.fail-fast=true
-    spring.cloud.config.max-attempts=10
-    spring.cloud.config.max-interval=1500
-    spring.cloud.config.multiplier=1.2
-    spring.cloud.config.initial-interval=1100
-    spring.cloud.config.allowOverride=true
-    spring.cloud.config.overrideNone=true
-    
-    server.port=8081
-    
-    spring.kafka.bootstrap-servers=kafka:9092
-    spring.kafka.properties.security.protocol=SASL_PLAINTEXT
-    spring.kafka.properties.sasl.mechanism=PLAIN
-    spring.kafka.properties.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="user1" password="6NqY4K4bJX";
-    
-    spring.cloud.bus.enabled=true
-
-  bootstrap.properties: |
-    spring.application.name=catalog-service
-    spring.profiles.active=dev
-    spring.cloud.config.uri=http://config-server:8888
+  test.properties: |
+    my.test.config=hiThere1
 
 kind: ConfigMap
 metadata:

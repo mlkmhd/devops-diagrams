@@ -22,7 +22,7 @@ spec:
         - env:
             - name: TZ
               value: "Asia/Tokyo"
-          image: registry-jpe2.r-local.net/ecfd-devops-spring-cloud-config/test-order-service
+          image: registry-jpe2.r-local.net/ecfd-devops-spring-cloud-config/test-order-service:3
           imagePullPolicy: Always
           name: order-service
           ports:
@@ -69,4 +69,4 @@ spec:
             defaultMode: 288
             sources:
               - configMap:
-                  name: order-service
+                  name: order-service-startup

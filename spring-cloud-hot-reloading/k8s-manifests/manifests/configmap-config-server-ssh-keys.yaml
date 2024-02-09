@@ -1,9 +1,11 @@
 apiVersion: v1
 data:
+  known_hosts: |
+    xxxxxxxxxxxxxxxxxxxxxxx
   id_rsa.pub: |
-    ssh-rsa xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx nobody@nowhere
+    ssh-rsa xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   id_rsa: |
-    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 kind: ConfigMap
 metadata:
   labels:
