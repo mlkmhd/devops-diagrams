@@ -7,11 +7,13 @@ services:
       ports:
       - "8404:8404"
       - "9009:9009"
+      restart: always
     
     consul:
       image: consul:1.15
       ports:
       - "8500:8500"
+      restart: always
     
     cortex1:
       image: quay.io/cortexproject/cortex:master-c9d6ca8
@@ -20,6 +22,7 @@ services:
       - "9001:9009"
       volumes:
       - "./config/cortex-config.yaml:/etc/single-process-config.yaml"
+      restart: always
     
     cortex2:
       image: quay.io/cortexproject/cortex:master-c9d6ca8
@@ -28,7 +31,8 @@ services:
       - "9002:9009"
       volumes:
       - "./config/cortex-config.yaml:/etc/single-process-config.yaml"
-    
+      restart: always
+
     cortex3:
       image: quay.io/cortexproject/cortex:master-c9d6ca8
       command: -config.file=/etc/single-process-config.yaml -ring.store=consul  -consul.hostname=consul:8500
@@ -36,24 +40,28 @@ services:
       - "9003:9009"
       volumes:
       - "./config/cortex-config.yaml:/etc/single-process-config.yaml"
-    
+      restart: always
+
     grafana:
       image: grafana/grafana
       ports:
       - "3000:3000"
-    
+      restart: always
+
     node-exporter:
       image: basi/node-exporter
       ports:
       - "9100:9100"
-    
+      restart: always
+
     prometheus:
       image: prom/prometheus
       ports:
       - "9090:9090"
       volumes:
       - "./config/prometheus.yml:/etc/prometheus/prometheus.yml"
-    
+      restart: always
+
     promxy:
       build: ./promxy
       volumes:
@@ -64,6 +72,7 @@ services:
         - promxy
         - --log-level=debug
         - --config=/app/promxy.yaml
+      restart: always
 
     alertmanager:
       image: prom/alertmanager
@@ -73,3 +82,4 @@ services:
         - '--config.file=/etc/alertmanager/config.yml'
       volumes:
         - ./config/alertmanager.yml:/etc/alertmanager/config.yml
+      restart: always
