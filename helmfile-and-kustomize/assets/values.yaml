@@ -1,0 +1,100 @@
+replicaCount: 2
+
+fullnameOverride: "envoy-proxy-rabbitmq"
+
+podAnnotations: 
+  sidecar.istio.io/inject: "false"
+
+podLabels:
+  networkpolicy/to-dev: allow
+
+livenessProbe:
+  tcpSocket:
+    port: tcp-1
+  initialDelaySeconds: 30
+
+readinessProbe:
+  tcpSocket:
+    port: tcp-1
+  initialDelaySeconds: 30
+
+securityContext:
+  runAsUser: 1000
+
+image:
+  repository: envoyproxy/envoy-alpine
+  tag: v1.18.2
+
+command:
+args:
+  - envoy
+  - -c
+  - /config/envoy.yaml
+  - --use-dynamic-base-id
+
+service:
+  name: envoy-proxy-rabbitmq-beta
+  ports:
+    tcp-1:
+      port: 5672
+      targetPort: tcp-1
+      protocol: TCP
+    n0:
+
+ports:
+  tcp-1:
+    containerPort: 5672
+    protocol: TCP
+  n0:
+
+resources: 
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+files:
+  envoy.yaml: |-
+    admin:
+      access_log_path: "/dev/null"
+      address:
+        socket_address:
+          protocol: TCP
+          address: 0.0.0.0
+          port_value: 8080
+    static_resources:
+      listeners:
+      - name: rabbitmq_listener
+        address:
+          socket_address:
+            address: 0.0.0.0
+            port_value: 5672
+        filter_chains:
+          - filters:
+              - name: envoy.filters.network.tcp_proxy
+                typed_config:
+                  "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+                  cluster: rabbitmq_cluster
+                  stat_prefix: rabbitmq_cluster_stats
+      clusters:
+      - name: rabbitmq_cluster
+        lb_policy: ROUND_ROBIN
+        type: STRICT_DNS
+        connect_timeout: 0.25s
+        dns_lookup_family: V4_ONLY
+        load_assignment:
+          cluster_name: rabbitmq_cluster
+          endpoints:
+            - lb_endpoints:
+                - endpoint:
+                    address:
+                      socket_address:
+                        address: 192.168.1.1
+                        port_value: 5672
+                - endpoint:
+                    address:
+                      socket_address:
+                        address: 192.168.1.2
+                        port_value: 5672

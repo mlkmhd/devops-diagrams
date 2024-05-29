@@ -1,0 +1,35 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  image: bitnami/kubectl
+  script: |
+    set -xe
+    env
+
+    namespace=`echo $CI_PROJECT_NAMESPACE | awk -F'/' '{print $NF}'`
+    export HOME=/tmp
+
+    if [ -f "helmfile.yaml" ]
+    then
+
+      helmfile template > all.yaml
+      kubectl-slice --input-file=all.yaml --output-dir=target
+    fi
+
+    if [ -f "kustomization.yaml" ]
+    then
+      kustomize build . > all-patched.yaml
+      rm -f all.yaml
+      mv all-patched.yaml all.yaml
+      rm -rf target
+      kubectl-slice --input-file=all.yaml --output-dir=target
+    fi
+
+    if [ -d "raw-manifests" ]; then
+      mkdir -p target
+      cp raw-manifests/* target/
+    fi
+
+    kubectl -n ${namespace} apply -f target

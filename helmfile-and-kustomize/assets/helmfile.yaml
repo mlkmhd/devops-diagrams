@@ -1,0 +1,12 @@
+repositories:
+  - name: registry
+    url: https://cloudnativeapp.github.io/charts/curated
+
+releases:
+  - name: rabbitmq-proxy
+    namespace: test
+    createNamespace: false
+    chart: registry/envoy
+    version: 1.5.0
+    values:
+      - ./values.yaml
