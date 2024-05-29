@@ -3,7 +3,7 @@ stages:
 
 deploy:
   stage: deploy
-  image: bitnami/kubectl
+  image: docker.io/mlkmhd/cd-pipeline:1
   script: |
     set -xe
     env
