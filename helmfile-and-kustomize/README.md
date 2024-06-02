@@ -7,3 +7,4 @@ in the following flow chart you'll be able to see an algorithm to combine differ
   <img src="pictures/architecture.png?raw=true" />
 </p>
 
+you can see the full article at the following link: https://medium.com/itnext/helm-kustomize-raw-manifests-combination-570f81acf996
