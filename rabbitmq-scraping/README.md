@@ -8,3 +8,4 @@ As you can see in bellow diagram, there are 2 way to scrape metrics from rabbitm
   <img src="pictures/architecture.jpg?raw=true" />
 </p>
 
+you can read the full article at the following blog post: https://medium.com/itnext/stop-using-rabbitmq-exporter-5817d39dc236
