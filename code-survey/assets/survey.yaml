@@ -1,0 +1,102 @@
+title: "Commit Classification Survey"
+description: "A survey about the commit in Kubernetes Project, to help better understand the design and evolution of Kubernetes. For choice, try to be as specific as possible based on the commit message and code changes. If the commit message is not clear or does not provide enough information, you can choose the 'I'm not sure' option."
+questions:
+  - id: summary
+    type: fill_in
+    question: "Please provide a summary of It in one short sentence not longer than 30 words. Only output one sentence."
+    required: true
+
+  - id: keywords
+    type: fill_in
+    question: "Please extract no more than 3 keywords from the commit. Only output 3 keywords without any special characters."
+    required: true
+
+  - id: commit_classification
+    type: single_choice
+    question: "What may be the main type of the commit?"
+    choices:
+      - value: A bug fix. It primarily resolves a bug or issue in the code.
+      - value: A new feature. It adds a new capability or feature that was not previously present.
+      - value: A performance optimization. It improves the performance of existing code such as reducing latency or improving throughput.
+      - value: A cleanup or refactoring in the code. It involves changes to improve code readability maintainability or structure without changing its functionality.
+      - value: A documentation change or typo fix. It only involves changes to documentation files or fixes a typographical error.
+      - value: A test case or test infrastructure change. It adds or modifies test cases test scripts or testing infrastructure.
+      - value: A build system or CI/CD change. It affects the build process continuous integration or deployment pipelines.
+      - value: A security fix. It resolves a security vulnerability or strengthens security measures.
+      - value: It's other type of commit. It does not fit into any of the categories listed above.
+      - value: I'm not sure about the type of the commit. The nature of It is unclear or uncertain.
+
+  - id: commit_complexity
+    type: single_choice
+    question: "What is the estimated complexity of implementing this commit considering file and line changes? Note that complexity is most about the impact of the changes. line changes is just a reference."
+    choices:
+      - value: Simple. Affects 1-20 lines or across 1-2 files. Typically involves minor bug fixes or small refactoring tasks. requiring minimal configuration or understanding of the system.
+      - value: Moderate. Affects 21-100 lines or across a few files (up to 3-4). Involves adding or modifying features or making structural changes that require some system knowledge.
+      - value: Complex. Affects more than 100 lines or across 5 or more files. Involves significant changes such as adding new subsystems or refactoring core components requiring deep system knowledge.
+      - value: Merge-like. The commit merges multiple branches or contains changes that affect various features or components. making it broader than a typical feature or bug fix.
+      - value: Non-code or generated. The changes involve auto-generated code or dependency updates or large formatting commits. which may affect many lines but do not reflect typical code complexity.
+      - value: I'm not sure about the complexity of the commit. It is difficult to estimate the complexity based on the provided commit details.
+
+  - id: major_related_implementation_component
+    type: single_choice
+    question: "What major implementation component is modified by the commit? It's typically where the code changes happened."
+    choices:
+      - value: The Kubernetes API server. This component is responsible for exposing the Kubernetes API and handling requests from users and other components.
+      - value: The kube-scheduler. It affects how Kubernetes schedules workloads on the cluster based on resource availability and constraints.
+      - value: The kube-controller-manager. It modifies or adds controllers that manage the cluster’s state, such as the replication controller, node controller, and service controller.
+      - value: The kubelet. It changes how the kubelet on individual nodes interacts with the container runtime, monitors node health, or manages pod lifecycles.
+      - value: The container runtime. It affects the interaction between Kubernetes and container runtimes like Docker, containerd, or CRI-O.
+      - value: The etcd datastore. It modifies how Kubernetes interacts with the distributed key-value store used to hold the cluster state.
+      - value: The network components (CNI). It affects networking features like pod communication, service networking, or network policies.
+      - value: The storage components (CSI). It modifies storage-related functionality like persistent volume management or interaction with storage backends.
+      - value: The kubectl utility. It changes the command-line tool used for interacting with the Kubernetes API server.
+      - value: The Helm charts or operators. It involves changes to Helm charts or Kubernetes operators used to deploy and manage applications on the cluster.
+      - value: The test cases and makefiles. It adds or modifies test cases or makefile scripts used for testing or building Kubernetes components.
+      - value: It's a merge commit. It includes significant changes across multiple components of the system.
+      - value: It's not related to any above. It affects an implementation component not listed but still related to Kubernetes.
+      - value: It's not related to any above. It affects an implementation component totally unrelated to the Kubernetes ecosystem. This is rare and might need removal.
+      - value: I'm not sure about the implementation component of the commit. The component affected by it is unclear.
+
+  - id: major_related_logic_component
+    type: single_choice
+    question: "What major logic component is affected by the commit? Logic components are typically related to features or behaviors of Kubernetes, rather than specific implementation details."
+    choices:
+      - value: Scheduling Logic. E.g. It changes how Kubernetes schedules workloads, such as modifications to resource constraints, priority policies, or scheduling algorithms.
+      - value: Autoscaling Logic. E.g. It modifies how Kubernetes handles autoscaling of resources, including the horizontal or vertical pod autoscaler or cluster autoscaler logic.
+      - value: Load Balancing and Service Discovery Logic. E.g. It affects how services are exposed and how traffic is load-balanced between pods.
+      - value: Network Policy and Security Logic. E.g. It changes the logic for network policy enforcement, security contexts, or pod security admission.
+      - value: Storage Logic. E.g. It modifies how persistent volumes are provisioned, bound, or managed within Kubernetes clusters.
+      - value: API Request and Admission Control Logic. E.g. It changes the logic governing how requests to the Kubernetes API are handled, authenticated, validated, or authorized.
+      - value: Pod Lifecycle and Node Management Logic. E.g. It affects the logic related to pod states, node health checks, or pod eviction policies.
+      - value: RBAC and Authorization Logic. E.g. It changes how Kubernetes handles Role-Based Access Control (RBAC), permission models, or resource access.
+      - value: Configuration and Secrets Management Logic. E.g. It modifies how Kubernetes manages configurations, secrets, or environment variables.
+      - value: Cluster Federation Logic. E.g. It changes how Kubernetes manages multiple clusters and federates resources across them.
+      - value: Control Plane and API Extensions Logic. E.g. It modifies extensions like CRDs (Custom Resource Definitions) or aggregated APIs that allow users to extend Kubernetes functionality.
+      - value: General Utilities Logic. E.g. It modifies scripts, tools, or utilities used for testing, debugging, or building Kubernetes.
+      - value: It's likely a merge commit. E.g. It involves changes across multiple logic components or merges large feature branches.
+      - value: It's not related to any above. E.g. It affects a logic component in Kubernetes that is not listed here.
+      - value: It's not related to any above because it totally not related to the Kubernetes system. The affected component and message have no interaction with Kubernetes, possibly a rare case requiring removal.
+      - value: I'm not sure about the logic component of the commit. The affected logic component is unclear.
+
+  - id: usecases_or_submodule_events
+    type: multiple_choice
+    question: "What major Kubernetes use cases or subsystems may the commit relate to and be designed for? Many commits affect how Kubernetes interacts with various subsystems or external services. Select the relevant use cases or subsystems related to the commit, and if not applicable, select the appropriate option."
+    choices:
+      - value: Networking related use cases. It affects networking-related use cases like pod communication, service discovery, or network policies.
+      - value: Storage related use cases. It impacts storage subsystems such as persistent volumes, dynamic provisioning, or storage class management.
+      - value: Scheduling related use cases. It affects the scheduling logic, determining how workloads are placed on nodes based on resources, priorities, or affinity rules.
+      - value: Autoscaling related use cases. It modifies autoscaling behavior for pods or nodes, including horizontal or vertical scaling features.
+      - value: Security and Policy related use cases. It relates to security contexts, RBAC policies, network policies, or any other mechanism controlling access or security.
+      - value: API Gateway and Ingress related use cases. It impacts ingress controllers or API gateways that handle external traffic routing into the Kubernetes cluster.
+      - value: Monitoring and Logging related use cases. It modifies how Kubernetes integrates with logging and monitoring tools like Prometheus, Fluentd, or Grafana.
+      - value: CRD and Operator related use cases. It affects custom resource definitions (CRDs) or Kubernetes Operators for managing application-specific workloads.
+      - value: CNI (Container Networking Interface) related use cases. It involves changes to how Kubernetes interacts with container networking plugins or configurations.
+      - value: CSI (Container Storage Interface) related use cases. It modifies how Kubernetes interacts with storage drivers and plugins through the CSI framework.
+      - value: Resource Quota and Limit Range related use cases. It impacts how Kubernetes enforces resource quotas or limits on namespaces and workloads.
+      - value: Service Mesh related use cases. It modifies how Kubernetes integrates with service mesh technologies like Istio, Linkerd, or Consul.
+      - value: Control Plane and API related use cases. It affects the Kubernetes control plane, API server interactions, or admission controllers.
+      - value: It's not related to any above because it improves the overall Kubernetes infrastructure. It enhances core components like kubelet, API server, etcd, or other control plane elements.
+      - value: It's likely a merge commit. It involves changes across multiple use cases or subsystems.
+      - value: It's not related to any above because it affects other use cases or Kubernetes components not listed here.
+      - value: It's not related to any above because it totally not related to the Kubernetes system. The affected component and message have no interaction with Kubernetes, a rare case that may need removal.
+      - value: I'm not sure about the use cases or events of the commit. The relationship between the commit and specific use cases or subsystems is unclear.

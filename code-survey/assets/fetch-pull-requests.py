@@ -44,19 +44,15 @@ def fetch_and_save_all_prs():
     Fetch all pull requests from the repository and save them as JSON files.
     """
     page = 1
-    all_prs = []
 
     while True:
         print(f"Fetching page {page}...")
         prs = fetch_pull_requests(page)
         if not prs:
             break
-        all_prs.extend(prs)
-        save_to_json(prs, f"pull_requests/pull_requests_page_{page}.json")
+        for pr in prs:
+            save_to_json(pr, f"pull_requests/pull_requests_page_{pr["number"]}.json")
         page += 1
-
-    # Optionally, save all PRs into a single file
-    save_to_json(all_prs, "all_pull_requests.json")
 
 
 # Execute the function to fetch and save pull requests
