@@ -15,4 +15,4 @@ ChatOps is more than a buzzword — it's a powerful way to bring your DevOps, pr
   <img src="pictures/chatops-chatbot-communication-pull.png?raw=true" />
 </p>
 
-You can learn more about the article that used the above diagrams at the following link: 
+You can learn more about the article that used the above diagrams at the following link: https://medium.com/itnext/chatops-with-zulip-030e43e14652
